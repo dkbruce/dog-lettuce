@@ -1,5 +1,7 @@
 from pathlib import Path
 
+DATA_PATH = Path('data/')
+
 
 def load_file(path=Path('data/users.txt')):
     with open(path, 'r') as f:
