@@ -1,10 +1,13 @@
+import pandas as pd
+
 from osu_requests.request_api import get_top_scores
 from loaders.loaders import load_file, DATA_PATH
 from process.helpers import dict_to_df, increment_count
 from process.users import get_all_usernames
 
 
-def count_top_scores(beatmap_file: str, score_limit: int = 50, verbose: bool = False, to_csv: bool = True) -> dict:
+def count_top_scores(beatmap_file: str, score_limit: int = 50, verbose: bool = False, to_csv: bool = True) ->\
+        pd.DataFrame:
     users = load_file(DATA_PATH / 'users.txt')
     beatmaps = load_file(DATA_PATH / beatmap_file)
 
@@ -23,9 +26,10 @@ def count_top_scores(beatmap_file: str, score_limit: int = 50, verbose: bool = F
         if user not in user_count.keys():
             user_count[user] = 0
 
-    output_df = dict_to_df(user_count, 'user_id', 'leaderboard_count')
+    output_df = dict_to_df(user_count, 'user_id', 'leaderboard_count')\
+        .sort_values(by='leaderboard_count', ascending=False)
     output_df['username'] = output_df['user_id'].map(get_all_usernames(verbose=verbose))
     if to_csv:
         output_df.to_csv(DATA_PATH / (beatmap_file.split('.')[0] + '.csv'))
 
-    return user_count
+    return output_df
