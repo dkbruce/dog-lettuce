@@ -1,6 +1,6 @@
 from osu_requests.request_api import get_top_scores
 from loaders.loaders import load_file, DATA_PATH
-from process.helpers import dict_to_df
+from process.helpers import dict_to_df, increment_count
 from process.users import get_all_usernames
 
 
@@ -28,12 +28,4 @@ def count_top_scores(beatmap_file: str, score_limit: int = 50, verbose: bool = F
     if to_csv:
         output_df.to_csv(DATA_PATH / (beatmap_file.split('.')[0] + '.csv'))
 
-    return user_count
-
-
-def increment_count(user_count: dict, user_id: str):
-    if user_id in user_count:
-        user_count[user_id] += 1
-    else:
-        user_count[user_id] = 1
     return user_count
