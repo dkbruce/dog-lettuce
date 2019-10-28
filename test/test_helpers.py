@@ -2,7 +2,7 @@ import unittest
 
 import pandas as pd
 
-from process.helpers import dict_to_df, increment_count
+from process.helpers import dict_to_df, increment_count, init_zero_dict
 from pandas.testing import assert_frame_equal
 
 
@@ -20,6 +20,10 @@ class TestLoaders(unittest.TestCase):
         self.assertEqual(test, {'a': 2})
         test = increment_count(test, 'b')
         self.assertEqual(test, {'a': 2, 'b': 1})
+
+    def test_init_zero_dict(self):
+        test = ['a', 'b', 'c']
+        self.assertEqual(init_zero_dict(test), {'a': 0, 'b': 0, 'c': 0})
 
 
 if __name__ == '__main__':
