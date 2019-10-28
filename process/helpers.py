@@ -7,6 +7,20 @@ def dict_to_df(input_dict: dict, key_name: str, val_name: str) -> pd.DataFrame:
     return out.reset_index()
 
 
+def init_zero_dict(input_list: list) -> dict:
+    output_dict = {}
+    for item in input_list:
+        output_dict[item] = 0
+    return output_dict
+
+
+def init_empty_list_dict(input_list: list) -> dict:
+    output_dict = {}
+    for item in input_list:
+        output_dict[item] = []
+    return output_dict
+
+
 def increment_count(user_count: dict, user_id: str):
     if user_id in user_count:
         user_count[user_id] += 1
