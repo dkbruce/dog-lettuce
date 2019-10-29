@@ -12,5 +12,5 @@ def run_query():
 
 if __name__ == '__main__':
     while True:
-        schedule.every().hour.do()
+        schedule.every().hour.do(run_query)
         time.sleep(1)
