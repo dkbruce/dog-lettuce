@@ -16,7 +16,7 @@ def get_all_usernames(verbose: bool = False) -> dict:
         user_cache['user_id'] = user_cache['user_id'].astype(str)
         user_cache_ids = user_cache['user_id'].values
         id_to_username = pd.Series(user_cache['username'].values, index=user_cache['user_id']).to_dict()
-    except:  # Cache doesn't exist
+    except FileNotFoundError:  # Cache doesn't exist
         user_cache_ids = []
         id_to_username = {}
 
