@@ -6,7 +6,6 @@ from flask import Flask, render_template
 from loaders.loaders import DATA_PATH, load_last_update
 
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
 
 api_key = os.environ['API_KEY']
 
