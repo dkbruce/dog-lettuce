@@ -1,4 +1,4 @@
-var yourDateToGo = new Date("November 1 2019 00:00"); //here you're making new Date object
+var yourDateToGo = new Date(Date.UTC(2019, 10, 1, 0, 0, 0)); //here you're making new Date object
     yourDateToGo.setDate(yourDateToGo.getDate() + 1); //your're setting date in this object 1 day more from now
     //you can change number of days to go by putting any number in place of 1
 
