@@ -1,11 +1,12 @@
+import os
+
 import pandas as pd
 
 from flask import Flask, render_template
-from pathlib import Path
-
 from loaders.loaders import DATA_PATH, load_last_update
 
 app = Flask(__name__)
+app.config.from_object(os.environ['APP_SETTINGS'])
 
 
 @app.route("/")
@@ -17,4 +18,5 @@ def home():
 
 
 if __name__ == "__main__":
+    print(os.environ['APP_SETTINGS'])
     app.run()
