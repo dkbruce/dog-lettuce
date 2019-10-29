@@ -1,7 +1,7 @@
 from process.top_scores import count_top_scores
 from process.aggregation import challenge0001_agg
 
-if __name__ == '__main__':
-    beatmaps = 'challenge0001.txt'
+beatmaps_file = 'challenge0001.txt'
 
-    user_count = count_top_scores(beatmaps, challenge0001_agg, 8, verbose=True, to_csv=True)
+if __name__ == '__main__':
+    user_count = count_top_scores(beatmaps_file, challenge0001_agg, 8, verbose=True, to_csv=True)
