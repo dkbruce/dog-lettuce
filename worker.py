@@ -1,4 +1,5 @@
 import schedule
+import time
 
 from process.top_scores import count_top_scores
 from process.aggregation import challenge0001_agg
@@ -10,4 +11,6 @@ def run_query():
 
 
 if __name__ == '__main__':
-    schedule.every().hour.do()
+    while True:
+        schedule.every().hour.do()
+        time.sleep(1)
