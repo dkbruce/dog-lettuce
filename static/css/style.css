@@ -1,0 +1,28 @@
+.navbar-brand {
+    font-size: 32px;
+}
+
+
+.img {
+    margin: 5px auto;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.navbar li {
+    margin: 5px;
+}
+
+body {
+    font-family: 'Montserrat';
+}
+
+th {
+    font-size: 20px;
+}
+
+tr {
+    font-size: 14px;
+}
