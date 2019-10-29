@@ -8,6 +8,8 @@ from loaders.loaders import DATA_PATH, load_last_update
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 
+api_key = os.environ['API_KEY']
+
 
 @app.route("/")
 def home():
@@ -18,5 +20,4 @@ def home():
 
 
 if __name__ == "__main__":
-    print(os.environ['APP_SETTINGS'])
     app.run()
