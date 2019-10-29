@@ -1,3 +1,5 @@
+import datetime
+
 import pandas as pd
 
 from osu_requests.request_api import get_top_scores, create_beatmap_info_csv
@@ -9,13 +11,13 @@ from process.users import get_all_usernames
 def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int = 50, verbose: bool = False,
                      to_csv: bool = True) -> pd.DataFrame:
     users = load_file(DATA_PATH / 'users.txt')
-    beatmaps = load_file(DATA_PATH / beatmap_file)
+    beatmaps = load_file(DATA_PATH / 'challenges' / beatmap_file)
 
     try:
-        map_info = pd.read_csv(DATA_PATH / (beatmap_file.split('.')[0] + '.csv'), index_col=0)
+        map_info = pd.read_csv(DATA_PATH / 'map_info' / (beatmap_file.split('.')[0] + '.csv'), index_col=0)
     except FileNotFoundError:
         create_beatmap_info_csv(beatmap_file, verbose=verbose)
-        map_info = pd.read_csv(DATA_PATH / (beatmap_file.split('.')[0] + '.csv'), index_col=0)
+        map_info = pd.read_csv(DATA_PATH / 'map_info' / (beatmap_file.split('.')[0] + '.csv'), index_col=0)
 
     map_list = []
     challenge_score = init_zero_dict(users)
@@ -34,12 +36,18 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
     for user in users:
         if user not in challenge_score.keys():
             challenge_score[user] = 0
+        challenge_score[user] = round(challenge_score[user], 2)
 
     output_df = dict_to_df(challenge_score, 'user_id', 'challenge_score')\
         .sort_values(by='challenge_score', ascending=False)
     output_df['username'] = output_df['user_id'].map(get_all_usernames(verbose=verbose))
     output_df['maps_played'] = output_df['user_id'].map(user_maps)
     if to_csv:
-        output_df.to_csv(DATA_PATH / (beatmap_file.split('.')[0] + 'results.csv'))
+        output_df.to_csv(DATA_PATH / 'results' / (beatmap_file.split('.')[0] + 'results.csv'))
+
+    current_time = datetime.datetime.utcnow().isoformat()
+
+    with open(DATA_PATH / 'last_update.txt', 'w') as f:
+        f.write(current_time)
 
     return output_df

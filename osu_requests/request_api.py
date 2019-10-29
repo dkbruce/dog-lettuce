@@ -15,7 +15,7 @@ def create_beatmap_info_csv(beatmap_file: str, verbose: bool = False, sleep_time
     for beatmap in beatmaps:
         beatmap_list.append(get_beatmap_info(beatmap, verbose, sleep_time=sleep_time))
     info_df = pd.DataFrame(beatmap_list)
-    info_df.to_csv(DATA_PATH / (beatmap_file.split('.')[0] + '.csv'))
+    info_df.to_csv(DATA_PATH / 'map_info' / (beatmap_file.split('.')[0] + '.csv'))
 
 
 def get_beatmap_info(beatmap: str, verbose: bool = False, sleep_time: float = 0.1) -> dict:
