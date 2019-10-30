@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = sqlalchemy.create_engine(DATABASE_URL)
-c = conn.cursor()
+c = conn.connect()
 
 
 @app.route("/")
