@@ -2,6 +2,8 @@ import os
 
 import pandas as pd
 
+api_key = os.environ['API_KEY']
+
 from flask import Flask, render_template
 from loaders.loaders import DATA_PATH, load_last_update
 
@@ -12,7 +14,6 @@ from main import beatmaps_file
 
 app = Flask(__name__)
 
-api_key = os.environ['API_KEY']
 
 @app.route("/")
 def home():
