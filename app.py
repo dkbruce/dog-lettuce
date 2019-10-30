@@ -36,7 +36,7 @@ def home():
         raise
     c.close()
     return render_template('home.html', column_names=visible_cols, row_data=list(scores_df.values.tolist()),
-                           last_update=time, hidden_row=(hidden_df.values.tolist()), zip=zip)
+                           last_update=time, zip=zip)
 
 
 if __name__ == "__main__":
