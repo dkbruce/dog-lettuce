@@ -69,13 +69,11 @@
                                     <td>{{row_}}</td>
                                     {% endfor %}
                                 </tr>
-                                {% for map in row.maps_played %}
-                                    <tr id="{{row.username}}" class="collapse">
-                                        <td colspan="3">
-                                            {{map}}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                                <tr id="{{row.username}}" class="collapse">
+                                    <td colspan="3">
+                                        {{row.maps_played}}
+                                    </td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
