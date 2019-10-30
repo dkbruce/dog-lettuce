@@ -2,10 +2,6 @@ import os
 import sqlalchemy
 import pandas as pd
 
-DATABASE_URL = os.environ['DATABASE_URL']
-conn = sqlalchemy.create_engine(DATABASE_URL)
-c = conn.connect()
-
 
 def dict_to_df(input_dict: dict, key_name: str, val_name: str) -> pd.DataFrame:
     out = pd.Series(input_dict, name=val_name)
@@ -36,7 +32,15 @@ def increment_count(user_count: dict, user_id: str):
 
 
 def most_recent_time():
-    row = c.execute('''SELECT * FROM Time''')
-    return row[0]
+    DATABASE_URL = os.environ['DATABASE_URL']
+    conn = sqlalchemy.create_engine(DATABASE_URL)
+    c = conn.connect()
+    try:
+        row = c.execute('''SELECT * FROM Time''')
+    except:
+        row = [None]
+    finally:
+        c.close()
+        return row[0]
 
 
