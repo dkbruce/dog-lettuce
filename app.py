@@ -22,11 +22,17 @@ def home():
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = sqlalchemy.create_engine(DATABASE_URL)
     c = conn.connect()
-    query = c.execute("SELECT user_id, challenge_score, username, time FROM competition0001")
-    scores_df = pd.DataFrame(query.fetchall())
-    time = scores_df['time'].iloc[0]
-    scores_df = scores_df[['user_id', 'challenge_score', 'username']]
-    scores_df.columns = query.keys()
+    trans = c.begin()
+    try:
+        query = c.execute("SELECT user_id, challenge_score, username, time FROM competition0001")
+        scores_df = pd.DataFrame(query.fetchall())
+        time = scores_df['time'].iloc[0]
+        scores_df = scores_df[['user_id', 'challenge_score', 'username']]
+        scores_df.columns = query.keys()
+        trans.commit()
+    except:
+        trans.rollback()
+        raise
     c.close()
     return render_template('home.html', column_names=scores_df.columns.values, row_data=list(scores_df.values.tolist()),
                            last_update=time, zip=zip)

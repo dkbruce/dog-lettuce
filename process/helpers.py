@@ -35,11 +35,13 @@ def most_recent_time():
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = sqlalchemy.create_engine(DATABASE_URL)
     c = conn.connect()
+    trans = c.begin()
     try:
         row = c.execute('''SELECT * FROM Time''')
     except:
         row = [None]
     finally:
+        trans.commit()
         c.close()
         return row[0]
 
