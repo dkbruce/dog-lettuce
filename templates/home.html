@@ -69,7 +69,7 @@
                                 {% for row in row_data %}
                                     <tr data-toggle="collapse" data-target="#{{row.user_id}}" class="clickable text-center accordion-toggle">
                                         {% for col, row_ in zip(column_names, row) %}
-                                            <td>{{row_}}</td>
+                                            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{row_}}</td>
                                         {% endfor %}
                                     </tr>
                                     <tr id="{{row.user_id}}" class="row-fluid accordion-body collapse in">
