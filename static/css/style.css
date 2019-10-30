@@ -34,7 +34,7 @@ tr {
 .row {
   display: table;
   table-layout: fixed;
-  word-wrap: break-word;
+  word-wrap: anywhere;
   width: 100%;
 }
 
