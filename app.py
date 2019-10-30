@@ -5,9 +5,15 @@ import pandas as pd
 from flask import Flask, render_template
 from loaders.loaders import DATA_PATH, load_last_update
 
+from process.top_scores import count_top_scores
+from process.aggregation import challenge0001_agg
+
+from main import beatmaps_file
+
 app = Flask(__name__)
 
 api_key = os.environ['API_KEY']
+
 
 
 @app.route("/")
@@ -19,4 +25,6 @@ def home():
 
 
 if __name__ == "__main__":
+    print('hi')
+    count_top_scores(beatmaps_file, challenge0001_agg, 8, verbose=True, to_csv=True)
     app.run()
