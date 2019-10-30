@@ -65,7 +65,7 @@
                                     {% endfor %}
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="accordion">
                                 {% for row in row_data %}
                                     <tr data-toggle="collapse" data-target="#{{row.user_id}}" class="clickable text-center accordion-toggle">
                                         {% for col, row_ in zip(column_names, row) %}
@@ -73,11 +73,7 @@
                                         {% endfor %}
                                     </tr>
                                     <tr id="{{row.user_id}}" class="accordion-body collapse">
-                                        <td colspan="3" class="hiddenRow">
-                                            <div>
-                                                <p>hi</p>
-                                            </div>
-                                        </td>
+                                        <td colspan="3">hi</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
