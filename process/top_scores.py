@@ -9,10 +9,6 @@ from loaders.loaders import load_file, DATA_PATH
 from process.helpers import dict_to_df, increment_count, init_zero_dict, init_empty_list_dict
 from process.users import get_all_usernames
 
-DATABASE_URL = os.environ['DATABASE_URL']
-conn = sqlalchemy.create_engine(DATABASE_URL)
-c = conn.connect()
-
 
 def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int = 50, verbose: bool = False,
                      to_csv: bool = False) -> pd.DataFrame:
@@ -28,16 +24,16 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
     map_list = []
     challenge_score = init_zero_dict(users)
     user_maps = init_empty_list_dict(users)
-    for beatmap in beatmaps:
-        map_list.append(get_top_scores(beatmap, score_limit, verbose))
+    # for beatmap in beatmaps:
+    #     map_list.append(get_top_scores(beatmap, score_limit, verbose))
 
-    for beatmap, beatmap_id in zip(map_list, beatmaps):
-        for play in beatmap:
-            user_id = play['user_id']
-            if user_id in users:
-                challenge_score[user_id] += aggregation_function(map_info[map_info['beatmap_id']
-                                                                          == int(beatmap_id)].squeeze())
-                user_maps[user_id].append(beatmap_id)
+    # for beatmap, beatmap_id in zip(map_list, beatmaps):
+    #     for play in beatmap:
+    #         user_id = play['user_id']
+    #         if user_id in users:
+    #             challenge_score[user_id] += aggregation_function(map_info[map_info['beatmap_id']
+    #                                                                       == int(beatmap_id)].squeeze())
+    #             user_maps[user_id].append(beatmap_id)
 
     for user in users:
         if user not in challenge_score.keys():
@@ -55,7 +51,15 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
 
     if to_csv:
         output_df.to_csv(DATA_PATH / 'results' / (beatmap_file.split('.')[0] + 'results.csv'))
+
+    DATABASE_URL = os.environ['DATABASE_URL']
+    conn = sqlalchemy.create_engine(DATABASE_URL)
+    c = conn.connect()
+
     c.execute('''DROP TABLE IF EXISTS competition0001''')
+
     output_df.to_sql('competition0001', conn)
+
+    c.close()
 
     return output_df
