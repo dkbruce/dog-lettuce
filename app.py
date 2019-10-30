@@ -24,7 +24,7 @@ def home():
     c = conn.connect()
     trans = c.begin()
     try:
-        query = c.execute("SELECT User_id, Challenge_score, Username FROM competition0001")
+        query = c.execute("SELECT User_id, Challenge_score, Username, Time FROM competition0001")
         scores_df = pd.DataFrame(query.fetchall())
         scores_df.columns = query.keys()
         time = scores_df['Time'].iloc[0]
