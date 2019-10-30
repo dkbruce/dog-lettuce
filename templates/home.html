@@ -62,15 +62,15 @@
                             <th scope="col" class="text-center">{{col}}</th>
                             {% endfor %}
                         </tr>
-                        <tbody class="panel">
-                            {% for row, name in zip(row_data, usernames) %}
-                                <tr scope="row" data-toggle="collapse" data-target="#{{name}}" class="clickable text-center accordion-toggle">
+                        <tbody>
+                            {% for row in row_data %}
+                                <tr data-toggle="collapse" data-target="#{{row.username}}" class="clickable text-center">
                                     {% for col, row_ in zip(column_names, row) %}
                                     <td>{{row_}}</td>
                                     {% endfor %}
                                 </tr>
-                                {% for map in row[-1] %}
-                                    <tr id="{{name}}" class="hiddenRow accordion-body collapse">
+                                {% for map in row.maps_played %}
+                                    <tr id="{{row.username}}" class="collapse">
                                         <td colspan="3">
                                             {{map}}
                                         </td>
