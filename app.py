@@ -26,11 +26,10 @@ def home():
     query = c.execute("SELECT * FROM competition0001")
     scores_df = pd.DataFrame(query.fetchall())
     scores_df.columns = query.keys()
-    last_update = most_recent_time()
-    return render_template('home.html', column_names=scores_df.columns.values, row_data=list(scores_df.values.tolist()),
-                           last_update=last_update, zip=zip)
+    return render_template('home.html', column_names=scores_df.columns.values, row_data=list(scores_df.values.tolist())
+                           , zip=zip)
 
 
 if __name__ == "__main__":
-    count_top_scores(beatmaps_file, challenge0001_agg, 8, verbose=True, to_csv=False, to_db=True)
+    count_top_scores(beatmaps_file, challenge0001_agg, 8, verbose=True, to_csv=False)
     app.run()
