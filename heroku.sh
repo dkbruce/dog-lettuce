@@ -1,3 +1,3 @@
 #!/bin/bash
 gunicorn app:app
-python worker.py
+python main.py
