@@ -40,5 +40,4 @@ def home():
 
 
 if __name__ == "__main__":
-    count_top_scores(beatmaps_file, challenge0001_agg, 8, verbose=True, to_csv=False)
     app.run()
