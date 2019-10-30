@@ -22,11 +22,7 @@ c = conn.cursor()
 
 @app.route("/")
 def home():
-    try:
-        query = c.execute("SELECT * FROM competition0001")
-    except:
-        count_top_scores(beatmaps_file, challenge0001_agg, 8, verbose=True, to_csv=False, to_db=True)
-        query = c.execute("SELECT * FROM competition0001")
+    query = c.execute("SELECT * FROM competition0001")
     scores_df = pd.DataFrame(query.fetchall())
     scores_df.columns = query.keys()
     last_update = load_last_update()
