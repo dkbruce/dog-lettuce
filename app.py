@@ -23,7 +23,7 @@ c = conn.connect()
 
 @app.route("/")
 def home():
-    query = c.execute("SELECT * FROM competition0001")
+    query = c.execute("SELECT user_id, challenge_score, username FROM competition0001")
     scores_df = pd.DataFrame(query.fetchall())
     scores_df.columns = query.keys()
     return render_template('home.html', column_names=scores_df.columns.values, row_data=list(scores_df.values.tolist())
