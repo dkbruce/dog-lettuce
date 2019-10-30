@@ -71,7 +71,7 @@
                                         {% for col, row_ in zip(column_names, row) %}
                                             <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{row_}}</td>
                                         {% endfor %}
-                                        <td><a data-toggle="collapse" data-target="#{{row.user_id}}" aria-expanded="false" aria-controls="{{row.user_id}}" type="button" class="btn btn-primary">Show plays</a></td>
+                                        <td><a data-toggle="collapse" data-target="#{{row.user_id}}" aria-expanded="false" aria-controls="{{row.user_id}}" type="button" role="button" class="btn btn-primary">Show plays</a></td>
                                     </tr>
                                     <tr>
                                         <td id="{{row.user_id}}" class="accordion-body collapse">
