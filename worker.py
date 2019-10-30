@@ -10,8 +10,12 @@ def run_query():
     count_top_scores(beatmaps_file, challenge0001_agg, 8, verbose=True, to_csv=True)
 
 
+def test_print():
+    print('hi')
+
+
 if __name__ == '__main__':
-    run_query()
+    test_print()
     while True:
-        schedule.every().hour.do(run_query)
+        schedule.every().second.do(test_print)
         time.sleep(1)
