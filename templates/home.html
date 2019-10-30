@@ -62,13 +62,20 @@
                             <th scope="col" class="text-center">{{col}}</th>
                             {% endfor %}
                         </tr>
-                        {% for row in row_data %}
-                        <tr scope="row" class="text-center">
-                            {% for col, row_ in zip(column_names, row) %}
-                            <td>{{row_}}</td>
+                        <tbody class="panel">
+                            {% for row in row_data %}
+                            <tr data-toggle="collapse" data-target=row class="text-center accordion-toggle">
+                                {% for col, row_ in zip(column_names, row) %}
+                                <td>{{row_}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="hiddenRow accordion-body collapse">
+                                    {{row[-1]}}
+                                </td>
+                            </tr>
                             {% endfor %}
-                        </tr>
-                        {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>

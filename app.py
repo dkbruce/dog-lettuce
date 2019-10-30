@@ -24,18 +24,19 @@ def home():
     c = conn.connect()
     trans = c.begin()
     try:
-        query = c.execute("SELECT user_id, challenge_score, username, time FROM competition0001")
+        query = c.execute("SELECT user_id, challenge_score, username, time, maps_played FROM competition0001")
         scores_df = pd.DataFrame(query.fetchall())
         scores_df.columns = query.keys()
         time = scores_df['time'].iloc[0]
-        scores_df = scores_df[['user_id', 'challenge_score', 'username']]
+        scores_df = scores_df[['user_id', 'challenge_score', 'username', 'maps_played']]
+        visible_cols = ['user_id', 'challenge_score', 'username']
         trans.commit()
     except:
         trans.rollback()
         raise
     c.close()
-    return render_template('home.html', column_names=scores_df.columns.values, row_data=list(scores_df.values.tolist()),
-                           last_update=time, zip=zip)
+    return render_template('home.html', column_names=visible_cols, row_data=list(scores_df.values.tolist()),
+                           last_update=time, hidden_row=(hidden_df.values.tolist()), zip=zip)
 
 
 if __name__ == "__main__":
