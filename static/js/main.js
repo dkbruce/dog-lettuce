@@ -26,3 +26,7 @@ var yourDateToGo = new Date(Date.UTC(2019, 10, 0, 0, 0, 0)); //here you're makin
           //and you see "It's over" instead of time left
         }
       }, 1000)
+
+$('.collapse').on('show.bs.collapse', function () {
+    $('.collapse.in').collapse('hide');
+});
