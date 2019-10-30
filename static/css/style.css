@@ -31,10 +31,13 @@ tr {
     padding: 0 !important;
 }
 
-td {
-  word-break: break-all;
+.row {
+  display: table;
+  table-layout: fixed;
+  word-wrap: break-word;
+  width: 100%;
 }
 
-td {
-  word-break: break-all;
+.column {
+  display: table-cell;
 }
