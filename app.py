@@ -30,7 +30,7 @@ def home():
         time = scores_df['time'].iloc[0]
         scores_df = scores_df[['user_id', 'challenge_score', 'username', 'maps_played']]
         visible_cols = ['user_id', 'challenge_score', 'username']
-        usernames = scores_df['usernames'].values.tolist()
+        usernames = scores_df['username'].values.tolist()
         trans.commit()
     except:
         trans.rollback()
