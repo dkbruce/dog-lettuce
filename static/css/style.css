@@ -30,14 +30,3 @@ tr {
 .hiddenRow {
     padding: 0 !important;
 }
-
-.row {
-  display: table;
-  table-layout: fixed;
-  word-wrap: anywhere;
-  width: 100%;
-}
-
-.column {
-  display: table-cell;
-}
