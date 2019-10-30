@@ -1,4 +1,5 @@
 import os
+import psycopg2
 
 import pandas as pd
 
@@ -14,10 +15,16 @@ from main import beatmaps_file
 
 app = Flask(__name__)
 
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+c = conn.cursor()
+
 
 @app.route("/")
 def home():
-    scores_df = pd.read_csv(DATA_PATH / 'results' / 'challenge0001results.csv', index_col=0).drop(columns='maps_played')
+    query = c.execute("SELECT * FROM competition0001")
+    scores_df = pd.DataFrame(query.fetchall())
+    scores_df.columns = query.keys()
     last_update = load_last_update()
     return render_template('home.html', column_names=scores_df.columns.values, row_data=list(scores_df.values.tolist()),
                            last_update=last_update, zip=zip)

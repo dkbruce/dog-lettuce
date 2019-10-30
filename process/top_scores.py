@@ -1,4 +1,6 @@
 import datetime
+import os
+import psycopg2
 
 import pandas as pd
 
@@ -7,9 +9,12 @@ from loaders.loaders import load_file, DATA_PATH
 from process.helpers import dict_to_df, increment_count, init_zero_dict, init_empty_list_dict
 from process.users import get_all_usernames
 
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
 
 def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int = 50, verbose: bool = False,
-                     to_csv: bool = True) -> pd.DataFrame:
+                     to_csv: bool = False, to_db: bool = True) -> pd.DataFrame:
     users = load_file(DATA_PATH / 'users.txt')
     beatmaps = load_file(DATA_PATH / 'challenges' / beatmap_file)
 
@@ -42,10 +47,13 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
         .sort_values(by='challenge_score', ascending=False)
     output_df['username'] = output_df['user_id'].map(get_all_usernames(verbose=verbose))
     output_df['maps_played'] = output_df['user_id'].map(user_maps)
-    if to_csv:
-        output_df.to_csv(DATA_PATH / 'results' / (beatmap_file.split('.')[0] + 'results.csv'))
 
     current_time = datetime.datetime.utcnow().isoformat()
+
+    if to_csv:
+        output_df.to_csv(DATA_PATH / 'results' / (beatmap_file.split('.')[0] + 'results.csv'))
+    if to_db:
+        output_df.to_sql('competition0001', conn)
 
     with open(DATA_PATH / 'last_update.txt', 'w') as f:
         f.write(current_time)
