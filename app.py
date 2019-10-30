@@ -24,11 +24,11 @@ def home():
     c = conn.connect()
     trans = c.begin()
     try:
-        query = c.execute("SELECT User_id, Challenge_score, Username, Time FROM competition0001")
+        query = c.execute("SELECT user_id, challenge_score, username, time FROM competition0001")
         scores_df = pd.DataFrame(query.fetchall())
         scores_df.columns = query.keys()
-        time = scores_df['Time'].iloc[0]
-        scores_df = scores_df[['User_id', 'Challenge_score', 'Username']]
+        time = scores_df['time'].iloc[0]
+        scores_df = scores_df[['user_id', 'challenge_score', 'username']]
         trans.commit()
     except:
         trans.rollback()
