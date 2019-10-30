@@ -1,10 +1,12 @@
 import requests
+import os
 
 import pandas as pd
 
 from time import sleep
-from app import api_key
 from loaders.loaders import DATA_PATH, load_file
+
+api_key = os.environ['API_KEY']
 
 API_BASE = 'https://osu.ppy.sh/api/'
 

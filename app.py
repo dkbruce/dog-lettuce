@@ -14,8 +14,6 @@ app = Flask(__name__)
 
 api_key = os.environ['API_KEY']
 
-
-
 @app.route("/")
 def home():
     scores_df = pd.read_csv(DATA_PATH / 'results' / 'challenge0001results.csv', index_col=0).drop(columns='maps_played')
