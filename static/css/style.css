@@ -30,3 +30,11 @@ tr {
 .hiddenRow {
     padding: 0 !important;
 }
+
+td {
+  word-break: break-all;
+}
+
+td {
+  word-break: break-all;
+}
