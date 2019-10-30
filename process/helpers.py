@@ -1,4 +1,10 @@
+import os
+import sqlalchemy
 import pandas as pd
+
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = sqlalchemy.create_engine(DATABASE_URL)
+c = conn.connect()
 
 
 def dict_to_df(input_dict: dict, key_name: str, val_name: str) -> pd.DataFrame:
@@ -27,3 +33,10 @@ def increment_count(user_count: dict, user_id: str):
     else:
         user_count[user_id] = 1
     return user_count
+
+
+def most_recent_time():
+    row = c.execute('''SELECT * FROM Time''')
+    return row[0]
+
+

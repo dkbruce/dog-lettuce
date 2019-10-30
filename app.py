@@ -10,6 +10,7 @@ from loaders.loaders import DATA_PATH, load_last_update
 
 from process.top_scores import count_top_scores
 from process.aggregation import challenge0001_agg
+from process.helpers import most_recent_time
 
 from main import beatmaps_file
 
@@ -24,8 +25,9 @@ c = conn.connect()
 def home():
     query = c.execute("SELECT * FROM competition0001")
     scores_df = pd.DataFrame(query.fetchall())
+    scores_df = scores_df.drop(columns='maps_played')
     scores_df.columns = query.keys()
-    last_update = load_last_update()
+    last_update = most_recent_time()
     return render_template('home.html', column_names=scores_df.columns.values, row_data=list(scores_df.values.tolist()),
                            last_update=last_update, zip=zip)
 

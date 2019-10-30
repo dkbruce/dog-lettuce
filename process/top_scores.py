@@ -11,6 +11,7 @@ from process.users import get_all_usernames
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = sqlalchemy.create_engine(DATABASE_URL)
+c = conn.connect()
 
 
 def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int = 50, verbose: bool = False,
@@ -53,7 +54,11 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
     if to_csv:
         output_df.to_csv(DATA_PATH / 'results' / (beatmap_file.split('.')[0] + 'results.csv'))
     if to_db:
+        c.execute('''DROP TABLE IF EXISTS competition0001''')
         output_df.to_sql('competition0001', conn)
+        c.execute('''DROP TABLE IF EXISTS Time''')
+        c.execute('''CREATE TABLE Time (time DATETIME)''')
+        c.execute('''INSERT INTO Time ({})'''.format(current_time))
 
     with open(DATA_PATH / 'last_update.txt', 'w') as f:
         f.write(current_time)
