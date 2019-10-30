@@ -1,6 +1,6 @@
 import datetime
 import os
-import psycopg2
+import sqlalchemy
 
 import pandas as pd
 
@@ -10,7 +10,7 @@ from process.helpers import dict_to_df, increment_count, init_zero_dict, init_em
 from process.users import get_all_usernames
 
 DATABASE_URL = os.environ['DATABASE_URL']
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+conn = sqlalchemy.create_engine(DATABASE_URL)
 
 
 def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int = 50, verbose: bool = False,
