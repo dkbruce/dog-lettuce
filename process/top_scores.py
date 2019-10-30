@@ -58,11 +58,11 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
     trans = c.begin()
     try:
         c.execute('''DROP TABLE IF EXISTS competition0001''')
-        output_df.to_sql('competition0001', conn)
         trans.commit()
     except:
         trans.rollback()
         raise
+    output_df.to_sql('competition0001', conn)
     c.close()
 
     return output_df
