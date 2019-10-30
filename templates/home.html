@@ -63,17 +63,19 @@
                             {% endfor %}
                         </tr>
                         <tbody class="panel">
-                            {% for row in row_data %}
-                            <tr scope="row" data-toggle="collapse" data-target="#{{row}}" class="clickable text-center accordion-toggle">
-                                {% for col, row_ in zip(column_names, row) %}
-                                <td>{{row_}}</td>
+                            {% for row, name in zip(row_data, usernames) %}
+                                <tr scope="row" data-toggle="collapse" data-target="#{{name}}" class="clickable text-center accordion-toggle">
+                                    {% for col, row_ in zip(column_names, row) %}
+                                    <td>{{row_}}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% for map in row[-1] %}
+                                    <tr id="{{name}}" class="hiddenRow accordion-body collapse">
+                                        <td colspan="3">
+                                            {{map}}
+                                        </td>
+                                    </tr>
                                 {% endfor %}
-                            </tr>
-                            <tr>
-                                <td colspan="3" id="{{row}}" class="hiddenRow accordion-body collapse">
-                                    {{row[-1]}}
-                                </td>
-                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
