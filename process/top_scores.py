@@ -53,8 +53,7 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
     if to_csv:
         output_df.to_csv(DATA_PATH / 'results' / (beatmap_file.split('.')[0] + 'results.csv'))
 
-    # DATABASE_URL = os.environ['DATABASE_URL']
-    DATABASE_URL = 'postgres://sagbwsnabpfjez:53d57f42dc9b468afc4788e73fb880f4403f08392b3ed62f3e37a990b3442f8d@ec2-107-20-198-176.compute-1.amazonaws.com:5432/dr0pq5hvd3e29'
+    DATABASE_URL = os.environ['DATABASE_URL']
     conn = sqlalchemy.create_engine(DATABASE_URL)
     c = conn.connect()
     trans = c.begin()
