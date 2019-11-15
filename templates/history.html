@@ -56,13 +56,33 @@
                                     {% endfor %}
                                 </tr>
                             </thead>
-                            <tbody class="accordion">
+                            <tbody>
                                 {% for row in row_data %}
-                                    <tr   class="clickable text-center accordion-toggle">
-                                        {% for col, row_ in zip(column_names, row) %}
-                                            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{row_}}</td>
-                                        {% endfor %}
-                                    </tr>
+                                    {% if loop.index == 1 %}
+                                        <tr class="first-place text-center">
+                                            {% for col, row_ in zip(column_names, row) %}
+                                                <td>{{row_}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% elif loop.index == 2 %}
+                                        <tr class="second-place text-center">
+                                            {% for col, row_ in zip(column_names, row) %}
+                                                <td>{{row_}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% elif loop.index == 3 %}
+                                        <tr class="third-place text-center">
+                                            {% for col, row_ in zip(column_names, row) %}
+                                                <td>{{row_}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% else %}
+                                        <tr class="text-center">
+                                            {% for col, row_ in zip(column_names, row) %}
+                                                <td>{{row_}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                             </tbody>
                         </table>
