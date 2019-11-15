@@ -13,9 +13,9 @@ API_BASE = 'https://osu.ppy.sh/api/'
 
 def create_beatmap_info_csv(beatmap_file: str, verbose: bool = False, sleep_time: float = 0.1):
     beatmap_list = []
-    beatmaps = load_file(DATA_PATH / beatmap_file)
+    beatmaps = load_file(DATA_PATH / 'challenges' / beatmap_file)
     for beatmap in beatmaps:
-        beatmap_list.append(get_beatmap_info(beatmap, verbose, sleep_time=sleep_time))
+        beatmap_list.append(get_beatmap_info(beatmap, verbose, sleep_time=sleep_time)[0])
     info_df = pd.DataFrame(beatmap_list)
     info_df.to_csv(DATA_PATH / 'map_info' / (beatmap_file.split('.')[0] + '.csv'))
 
@@ -58,8 +58,7 @@ def setup_endpoint(endpoint: str, params: dict, sleep_time: float, verbose: bool
         print(f'Querying params: {params}')
     req = req_osu_api(endpoint=endpoint, params=params, sleep_time=sleep_time)
     if req.status_code != 200:
-        print('Status not 200')
-        raise Exception
+        raise Exception('Status not 200')
     return req
 
 

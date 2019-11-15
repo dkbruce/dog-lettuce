@@ -18,7 +18,7 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
 
     try:
         map_info = pd.read_csv(DATA_PATH / 'map_info' / (beatmap_file.split('.')[0] + '.csv'), index_col=0)
-    except FileNotFoundError:
+    except:
         create_beatmap_info_csv(beatmap_file, verbose=verbose)
         map_info = pd.read_csv(DATA_PATH / 'map_info' / (beatmap_file.split('.')[0] + '.csv'), index_col=0)
 
@@ -53,7 +53,8 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
     if to_csv:
         output_df.to_csv(DATA_PATH / 'results' / (beatmap_file.split('.')[0] + 'results.csv'))
 
-    DATABASE_URL = os.environ['DATABASE_URL']
+    # DATABASE_URL = os.environ['DATABASE_URL']
+    DATABASE_URL = 'postgres://sagbwsnabpfjez:53d57f42dc9b468afc4788e73fb880f4403f08392b3ed62f3e37a990b3442f8d@ec2-107-20-198-176.compute-1.amazonaws.com:5432/dr0pq5hvd3e29'
     conn = sqlalchemy.create_engine(DATABASE_URL)
     c = conn.connect()
     trans = c.begin()
