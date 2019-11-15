@@ -1,7 +1,11 @@
-from process.top_scores import count_top_scores
-from process.aggregation import challenge0001_agg
+import os
 
-beatmaps_file = 'challenge0001.txt'
+from process.top_scores import count_top_scores
+from process.aggregation import *
+
+from app import CURRENT_COMPETITION
+
+beatmaps_file = f'{CURRENT_COMPETITION}.txt'
 
 if __name__ == '__main__':
-    user_count = count_top_scores(beatmaps_file, challenge0001_agg, 8, verbose=True, to_csv=True)
+    user_count = count_top_scores(beatmaps_file, competition0002_agg, 8, verbose=True)

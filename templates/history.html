@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dog Lettuce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<main>
+    {% extends "template.html" %}
+
+    {% block content %}
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-12'>
+                    <div class="dropdown">
+                        <select name="table_select">
+                            <option value="{{tables[0]}}" selected>{{tables[0]}}</option>
+                            {% for table in tables[1:] %}
+                            <option value="{{table}}">{{table}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="page-header">
+                        <h1 class="text-center">Previous Competitions</h1>
+                        <h4 class="text-center">{{title}}</h4>
+                        <ul class="text-center" style="list-style-type:none">
+                            {% for info_line in info %}
+                            <li>{{info_line}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-center">Last update: {{last_update}} UTC</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                               <tr>
+                                    {% for col in column_names %}
+                                        <th class="text-center">{{col}}</th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody class="accordion">
+                                {% for row in row_data %}
+                                    <tr   class="clickable text-center accordion-toggle">
+                                        {% for col, row_ in zip(column_names, row) %}
+                                            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{row_}}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</main>

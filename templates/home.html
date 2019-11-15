@@ -22,15 +22,11 @@
                 <div class='col-md-12'>
                     <div class="page-header">
                         <h1 class="text-center">Current Competition</h1>
-                        <h4 class="text-center">Challenge #1: Umineko (zts/07th Expansion/-45, etc)</h4>
+                        <h4 class="text-center">{{title}}</h4>
                         <ul class="text-center" style="list-style-type:none">
-                            <li>Objective:
-                                Fill the Top 8 of as many Umineko maps as you can!</li>
-                            <li> Duration:
-                                Saturday, October 26th (17:17 UTC) - Friday, November 1st (00:00 UTC)</li>
-                            <li>Prize:
-                                The person with the most top 8's will receive 3 months of supporter!
-                                2nd and 3rd will receive 1 month of supporter each!</li>
+                            {% for info_line in info %}
+                            <li>{{info_line}}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -57,7 +53,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-bordered">
                             <thead>
                                <tr>
                                     {% for col in column_names %}
@@ -65,22 +61,33 @@
                                     {% endfor %}
                                 </tr>
                             </thead>
-                            <tbody class="accordion">
+                            <tbody>
                                 {% for row in row_data %}
-                                    <tr   class="clickable text-center accordion-toggle">
-                                        {% for col, row_ in zip(column_names, row) %}
-                                            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">{{row_}}</td>
-                                        {% endfor %}
-                                        <td><a data-toggle="collapse" data-target="#{{row.user_id}}" aria-expanded="false" aria-controls="{{row.user_id}}" type="button" role="button" class="btn btn-primary">Show plays</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td id="{{row.user_id}}" class="accordion-body collapse">
-                                            <ul>
-                                                <li>hi</li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
+                                    {% if loop.index == 1 %}
+                                        <tr class="first-place text-center">
+                                            {% for col, row_ in zip(column_names, row) %}
+                                                <td>{{row_}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% elif loop.index == 2 %}
+                                        <tr class="second-place text-center">
+                                            {% for col, row_ in zip(column_names, row) %}
+                                                <td>{{row_}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% elif loop.index == 3 %}
+                                        <tr class="third-place text-center">
+                                            {% for col, row_ in zip(column_names, row) %}
+                                                <td>{{row_}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% else %}
+                                        <tr class="text-center">
+                                            {% for col, row_ in zip(column_names, row) %}
+                                                <td>{{row_}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                             </tbody>
                         </table>

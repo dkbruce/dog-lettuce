@@ -14,6 +14,7 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
                      to_csv: bool = False) -> pd.DataFrame:
     users = load_file(DATA_PATH / 'users.txt')
     beatmaps = load_file(DATA_PATH / 'challenges' / beatmap_file)
+    table_name = beatmap_file.split('.')[0]
 
     try:
         map_info = pd.read_csv(DATA_PATH / 'map_info' / (beatmap_file.split('.')[0] + '.csv'), index_col=0)
@@ -57,12 +58,12 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
     c = conn.connect()
     trans = c.begin()
     try:
-        c.execute('''DROP TABLE IF EXISTS competition0001''')
+        c.execute(f'''DROP TABLE IF EXISTS {table_name}''')
         trans.commit()
     except:
         trans.rollback()
         raise
-    output_df.to_sql('competition0001', conn)
+    output_df.to_sql(f'{table_name}', conn)
     c.close()
 
     return output_df
