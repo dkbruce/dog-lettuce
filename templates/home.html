@@ -23,9 +23,9 @@
                     <div class="page-header">
                         <h1 class="text-center">Current Competition</h1>
                         <h4 class="text-center">{{title}}</h4>
-                        {% for info_line in info %}
-                        <p class="text-center">{{info_line}}</p>
-                        {% endfor %}
+                        <p class="text-center">{% for info_line in info %}
+                        {{info_line}}
+                        {% endfor %}</p>
                     </div>
                 </div>
             </div>
