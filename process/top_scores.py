@@ -46,7 +46,7 @@ def count_top_scores(beatmap_file: str, aggregation_function, score_limit: int =
     output_df['username'] = output_df['user_id'].map(get_all_usernames(verbose=verbose))
     output_df['maps_played'] = output_df['user_id'].map(user_maps)
 
-    current_time = datetime.datetime.utcnow().isoformat()
+    current_time = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
 
     output_df['time'] = current_time
 
